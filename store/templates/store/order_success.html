@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Successful</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="alert alert-success">
+            <h2>Thank you for your order, {{ order.user.username }}!</h2>
+            <p>Your order has been successfully placed.</p>
+            <p><strong>Order ID:</strong> {{ order.id }}</p>
+            <p><strong>Total Price:</strong> ₹{{ order.total_price }}</p>
+            <p><strong>Shipping Address:</strong> {{ order.address }}</p>
+            <p><strong>Order Details:</strong> {{ order.cart_details }}</p>
+
+            <a href="/" class="btn btn-primary">Go to Home</a>
+            {% comment %} <a href="{% url 'order-history' %}" class="btn btn-secondary">View Your Orders</a> {% endcomment %}
+        </div>
+    </div>
+</body>
+</html>

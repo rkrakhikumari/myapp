@@ -1,0 +1,63 @@
+{% extends 'store/home.html' %}
+
+{% block content %}
+<style>
+    .cart-history-container {
+        max-width: 800px;
+        margin: 30px auto;
+        background-color: #f9f9f9;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .history-section-title {
+        font-size: 22px;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .history-item {
+        margin-bottom: 15px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .history-product-name {
+        font-weight: 600;
+        font-size: 16px;
+    }
+
+    .history-details {
+        font-size: 14px;
+        color: #666;
+        margin-top: 5px;
+    }
+
+    .history-timestamp {
+        font-size: 13px;
+        color: #999;
+        margin-top: 3px;
+    }
+</style>
+
+<div class="cart-history-container">
+    <div class="history-section-title">🛍️ Order History</div>
+    {% if history %}
+        {% for item in history %}
+        <div class="history-item">
+            <div class="history-product-name">{{ item.product.name }}</div>
+            <div class="history-details">
+                Size: {{ item.size.size|default:"N/A" }} - ₹{{ item.size.price }} |
+                Color: <span style="color: {{ item.color }}">{{ item.color|title }}</span> |
+                Quantity: {{ item.quantity }}
+            </div>
+            <div class="history-timestamp">Ordered on: {{ item.timestamp|date:"M d, Y, H:i" }}</div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p class="text-muted text-center">You haven’t placed any orders yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

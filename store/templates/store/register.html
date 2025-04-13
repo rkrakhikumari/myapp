@@ -1,0 +1,89 @@
+{% extends "store/home.html" %}
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="card shadow-lg p-4" style="width: 400px;">
+        <h3 class="text-center">Register</h3>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} text-center" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        {% if form.non_field_errors %}
+            <div class="alert alert-danger">
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+
+
+        <form id="registrationForm" method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" class="form-control" id="username" name="username" required>
+                {% if form.username.errors %}
+                    <div class="text-danger small">{{ form.username.errors.0 }}</div>
+                {% endif %}
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+                {% if form.email.errors %}
+                <div class="text-danger small">{{ form.email.errors.0 }}</div>
+                {% endif %}
+            </div>
+            <div class="mb-3">
+                <label for="password1" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password1" name="password1" required>
+                {% if form.password1.errors %}
+                    <div class="text-danger small">{{ form.password1.errors.0 }}</div>
+                {% endif %}
+            </div>
+            <div class="mb-3">
+                <label for="password2" class="form-label">Confirm Password</label>
+                <input type="password" class="form-control" id="password2" name="password2" required>
+                {% if form.password2.errors %}
+                    <div class="text-danger small">{{ form.password2.errors.0 }}</div>
+                {% endif %}
+            </div>
+            <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" id="showPassword" onclick="togglePassword()">
+                <label class="form-check-label" for="showPassword">
+                    Show Password
+                </label>
+            </div>
+            
+            <button type="submit" class="btn btn-success w-100">Register</button>
+            <div id="successMessage" style="display: none; color: green;">Registration successful!</div>
+
+        </form>
+        <div class="text-center mt-3">
+            <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    document.getElementById('registrationForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent form submission
+      
+        // Perform registration logic here
+        // If successful:
+        document.getElementById('successMessage').style.display = 'block'; // Show success message
+        
+      });
+      
+
+    function togglePassword() {
+      const pw1 = document.getElementById("password1");
+      const pw2 = document.getElementById("password2");
+      const type = pw1.type === "password" ? "text" : "password";
+      pw1.type = type;
+      pw2.type = type;
+    }
+</script>
+  
+
+{% endblock %}

@@ -1,0 +1,9 @@
+{% extends "store/home.html" %}
+
+{% block content %}
+  <div class="container">
+    <h2>Your cart is empty 🛒</h2>
+    <p>Please add some items to your cart before placing an order.</p>
+    <a href="{% url 'home' %}" class="btn btn-primary">Continue Shopping</a>
+</div>
+{% endblock %}
