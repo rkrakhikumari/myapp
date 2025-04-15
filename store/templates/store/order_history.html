@@ -18,6 +18,18 @@
         margin-bottom: 20px;
     }
 
+    .user-info {
+        background-color: #e9ecef;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 25px;
+    }
+
+    .user-info p {
+        margin: 5px 0;
+        font-size: 14px;
+    }
+
     .history-item {
         margin-bottom: 15px;
         padding-bottom: 12px;
@@ -43,9 +55,23 @@
 </style>
 
 <div class="cart-history-container">
+    <div class="history-section-title">👤 User Information</div>
+    <div class="user-info">
+        <p><strong>Username:</strong> {{ user.username }}</p>
+        <p><strong>Email:</strong> {{ email }}</p>
+        <p><strong>Phone Number:</strong> {{ phone_number }}</p>
+        <p><strong>Last Used Address:</strong> 
+            {% if last_address %}
+                {{ last_address }}
+            {% else %}
+                N/A
+            {% endif %}
+        </p>
+    </div>
+
     <div class="history-section-title">🛍️ Order History</div>
-    {% if history %}
-        {% for item in history %}
+    {% if cart_history %}
+        {% for item in cart_history %}
         <div class="history-item">
             <div class="history-product-name">{{ item.product.name }}</div>
             <div class="history-details">
@@ -53,7 +79,7 @@
                 Color: <span style="color: {{ item.color }}">{{ item.color|title }}</span> |
                 Quantity: {{ item.quantity }}
             </div>
-            <div class="history-timestamp">Ordered on: {{ item.timestamp|date:"M d, Y, H:i" }}</div>
+            <div class="history-timestamp">Ordered on: {{ item.added_at|date:"M d, Y, H:i" }}</div>
         </div>
         {% endfor %}
     {% else %}

@@ -18,12 +18,15 @@ urlpatterns = [
     path('register/', register, name='register'),
     path('login/', user_login, name='login'),
     path('logout/', user_logout, name='logout'),
-    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('place-order/', views.place_order, name='place_order'),
-    path('contact/', views.contact, name='contact'),
-    path('contact-success/', views.contact_success, name='contact_success'), 
+    path('about/', views.about_us, name='about_us'),
+    # path('contact-success/', views.contact_success, name='contact_success'), 
     path('order-success/<int:order_id>/', views.order_success, name='order-success'),
-    path('cart/history/', views.cart_history_view, name='cart_history'),
+    path('cart/history/', views.order_history, name='cart_history'),
+    # path('send-otp/', views.send_otp, name='send-otp'),
+    # path('verify-otp/', views.verify_otp, name='verify-otp'),
+    path('delete-review/<int:review_id>/', views.delete_review, name='delete_review'),
+
 
 
 ]

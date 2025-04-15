@@ -129,5 +129,5 @@ LOGIN_URL = "/login/"
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/login/"
 
-
+# First, configure your email settings in settings.py
 

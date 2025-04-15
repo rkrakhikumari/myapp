@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 # Create your models here.
 
+
 class Color(models.Model):
     name = models.CharField(max_length=50)
 
@@ -30,20 +31,7 @@ class ProductSize(models.Model):
         return f"{self.product.name} - {self.size}"
 
 
-class Cart(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    quantity = models.PositiveIntegerField(default=1)
-    size = models.ForeignKey(ProductSize, on_delete=models.CASCADE, default=1)
-    added_at = models.DateTimeField(auto_now_add=True)
-    color = models.CharField(max_length=20, null=True, blank=True)
 
-    def __str__(self):
-        return f"{self.product.name} - {self.size.size} ({self.quantity})"
-
-    def total_price(self):
-        return self.size.price * self.quantity
-    
 
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -53,15 +41,33 @@ class Order(models.Model):
     total_price = models.IntegerField(default=0)
     cart_details = models.TextField(null=True, blank=True)  # Stores the cart items as a text field
     created_at = models.DateTimeField(auto_now_add=True)  # This will automatically store the date of creation
-    items = models.ManyToManyField(Cart) 
+    # items = models.ManyToManyField(Cart) 
 
-    # def __str__(self):
-    #     return f"Order {self.user} - {self.total_price}- {self.phone_number}-{self.email}"
 
-    # def __str__(self):
-    #     phone = self.phone_number if self.phone_number else "No Phone"
-    #     email = self.email if self.email else "No Email"
-    #     return f"Order {self.user} - {self.total_price} - {phone} - {email}"
+    def __str__(self):
+        return f"Order {self.user} - {self.total_price}- {self.phone_number}-{self.email}"
+
+    def __str__(self):
+        phone_number = self.phone_number if self.phone_number else "No Phone"
+        email = self.email if self.email else "No Email"
+        return f"Order {self.user} - {self.total_price} - {phone_number} - {email}"
+    
+
+class Cart(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+    size = models.ForeignKey(ProductSize, on_delete=models.CASCADE, default=1)
+    added_at = models.DateTimeField(auto_now_add=True)
+    color = models.CharField(max_length=20, null=True, blank=True)
+    order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.product.name} - {self.size.size} ({self.quantity})"
+
+    def total_price(self):
+        return self.size.price * self.quantity
+
 
 class Contact(models.Model):
     name = models.CharField(max_length=100)
@@ -85,3 +91,16 @@ class CartHistory(models.Model):
 
     def __str__(self):
         return f"{self.user.username} - {self.product.name} (x{self.quantity})"
+
+
+class Review(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='reviews')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    rating = models.IntegerField(choices=[(i, str(i)) for i in range(1, 6)])
+    comment = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user.username}'s review on {self.product.name}"
+    
+

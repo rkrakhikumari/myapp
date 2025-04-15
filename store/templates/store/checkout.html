@@ -100,22 +100,48 @@
                 <label for="email">Email</label>
                 <input type="email" name="email" required/>
             </div>
-
             
             <div class="form-group">
-                <label for="address">Shipping Address</label>
-                <textarea id="address" name="address" required></textarea>
-            </div>
-
-            <div class="form-group">
-                <label for="phone">Phone Number</label>
-                <input type="text" id="phone" name="phone" required>
+                <label for="house_no">House No.</label>
+                <input type="text" name="house_no" required>
             </div>
             
-            <!-- Place Order Button (Between Both Sections) -->
+            <div class="form-group">
+                <label for="street">Street / Locality</label>
+                <input type="text" name="street" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="landmark">Landmark (Optional)</label>
+                <input type="text" name="landmark">
+            </div>
+            
+            <div class="form-group">
+                <label for="city">City</label>
+                <input type="text" name="city" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="state">State</label>
+                <select name="state" required>
+                    <option value="Delhi">Delhi</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="pincode">Pincode</label>
+                <input type="text" name="pincode" required pattern="\d{6}" title="Enter a 6-digit pincode">
+            </div>
+            
+            <div class="form-group">
+                <label for="phone_number">Phone Number</label>
+                <input type="text" id="phone_number" name="phone_number" required>
+            </div>
+            
             <div class="order-btn-wrapper">
                 <button type="submit" class="place-order-btn">Place Order</button>
             </div>
+            
         </form>
     </div>
 
@@ -130,6 +156,14 @@
 
         <h3>Total Amount: ₹{{ total_price }}</h3>
     </div>
+</div>
+
+<div style="text-align: center; margin-top: 30px; background: #f1f1f1; padding: 15px; border-radius: 8px;">
+    <p style="margin: 0; font-size: 16px;">
+        🛠️ Facing any issue while placing your order? <br>
+        Feel free to contact us at: <br>
+        📞 <strong>+91-9540866807</strong> | 📧 <strong>gksports95@gmail.com.com</strong>
+    </p>
 </div>
 
 {% endblock %}
